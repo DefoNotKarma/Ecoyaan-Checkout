@@ -231,9 +231,9 @@ export default function CartSummary() {
       selectedAddressId,
     }));
       const verify = sessionStorage.getItem("pendingOrder");
-      console.log("verified write:", verify); // should NOT be null
+      console.log("verified write:", verify); 
   
-      router.push("/checkout") // ← swap router.push for this
+      router.push("/checkout")
   };
 
   const s = {
