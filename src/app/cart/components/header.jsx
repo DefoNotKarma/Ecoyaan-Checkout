@@ -183,44 +183,65 @@ export default function EcoyaanHeader() {
     </div>
   );
 
-  /* ── Shared: Location Picker ── */
-  const LocationPicker = ({ inMenu = false }) => (
-    <div ref={!inMenu ? locationRef : null} style={{ position: "relative", flexShrink: 0 }}>
-      <button onClick={() => setLocationOpen(v => !v)} style={{
-        border: "1.5px solid #bbf7d0", borderRadius: "10px",
-        padding: inMenu ? "8px 12px" : "6px 10px",
-        background: locationOpen ? "#f0fdf4" : "#fff",
-        cursor: "pointer", display: "flex", alignItems: "center", gap: "6px",
-      }}>
-        <MapPinIcon />
-        <div style={{ textAlign: "left" }}>
-          <div style={{ fontSize: "0.58rem", color: "#9ca3af" }}>Deliver to</div>
-          <div style={{ fontSize: "0.78rem", fontWeight: "600", color: "#111827", whiteSpace: "nowrap" }}>Noida, 201301</div>
-        </div>
-        <ChevronDown />
-      </button>
 
-      {locationOpen && (
-        <div style={{
-          position: "absolute", top: "calc(100% + 8px)", left: 0,
-          background: "#fff", border: "1.5px solid #d1fae5", borderRadius: "12px",
-          boxShadow: "0 8px 32px rgba(22,163,74,0.12)", padding: "12px",
-          minWidth: "220px", zIndex: 100,
-        }}>
-          <p style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "8px" }}>Enter your pincode</p>
-          <input autoFocus placeholder="e.g. 110001" style={{
-            width: "100%", border: "1.5px solid #bbf7d0", borderRadius: "8px",
-            padding: "7px 10px", fontSize: "0.85rem", outline: "none", color: "#111827", boxSizing: "border-box",
-          }} />
-          <button style={{
-            marginTop: "8px", width: "100%", background: "#16a34a", color: "#fff",
-            border: "none", borderRadius: "8px", padding: "7px", fontSize: "0.82rem",
-            fontWeight: "600", cursor: "pointer",
-          }}>Update Location</button>
+const DeliveryBadge = () => {
+  const [expanded, setExpanded] = useState(true);
+
+  return (
+    <>
+      <style>{`
+        @keyframes badgePulse {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(22,163,74,0.25); }
+          50%       { box-shadow: 0 0 0 6px rgba(22,163,74,0); }
+        }
+        @keyframes fadeSlideIn {
+          from { opacity: 0; transform: translateY(4px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .delivery-badge {
+          animation: badgePulse 2.5s ease-in-out infinite;
+        }
+        .delivery-text {
+          animation: fadeSlideIn 0.4s ease forwards;
+        }
+      `}</style>
+
+      <div
+        className="delivery-badge"
+        onClick={() => setExpanded(v => !v)}
+        style={{
+          border: "1.5px solid #bbf7d0",
+          borderRadius: "10px",
+          padding: "6px 12px",
+          background: "#f0fdf4",
+          display: "flex",
+          alignItems: "center",
+          gap: "8px",
+          flexShrink: 0,
+          cursor: "pointer",
+        }}
+      >
+        {/* Pulsing green dot */}
+        <div style={{ position: "relative", width: "8px", height: "8px", flexShrink: 0 }}>
+          <div style={{ position: "absolute", inset: 0, background: "#16a34a", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", inset: "-3px", background: "rgba(22,163,74,0.2)", borderRadius: "50%", animation: "badgePulse 2s ease-in-out infinite" }} />
         </div>
-      )}
-    </div>
+
+        {/* Text */}
+        <div style={{ textAlign: "left" }}>
+          <div style={{ fontSize: "0.58rem", color: "#16a34a", fontWeight: "600", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+            Eco Express
+          </div>
+          {expanded && (
+            <div className="delivery-text" style={{ fontSize: "0.78rem", fontWeight: "700", color: "#111827", whiteSpace: "nowrap" }}>
+              🌿 Delivers in 2 days
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
+};
 
   /* ── Nav Links ── */
   const NavLinks = ({ compact = false }) => (
@@ -296,7 +317,7 @@ export default function EcoyaanHeader() {
             {mobileMenuOpen && (
               <div ref={mobileMenuRef} style={{ borderTop: "1px solid #f0fdf4", background: "#fafffe" }}>
                 <div style={{ padding: "12px 16px", borderBottom: "1px solid #f0fdf4" }}>
-                  <LocationPicker inMenu />
+                  <DeliveryBadge inMenu />
                 </div>
                 <NavLinks compact />
               </div>
@@ -320,7 +341,7 @@ export default function EcoyaanHeader() {
 
               <SearchBar />
 
-              <LocationPicker />
+              <DeliveryBadge />
               <IconBtn title="Account"><UserIcon /></IconBtn>
               <IconBtn onClick={() => setHeartFilled(v => !v)} title="Wishlist" active={heartFilled}>
                 <HeartIcon filled={heartFilled} />
@@ -352,7 +373,7 @@ export default function EcoyaanHeader() {
                 </div>
               </a>
 
-              <LocationPicker />
+              <DeliveryBadge />
               <SearchBar />
               <IconBtn title="Account"><UserIcon /></IconBtn>
               <IconBtn onClick={() => setHeartFilled(v => !v)} title="Wishlist" active={heartFilled}>
