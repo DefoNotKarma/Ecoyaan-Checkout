@@ -1,10 +1,11 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from "react";
 
+
 /* ══════════════════════════════════════════════
    PRECOMPUTED GLITTER
 ══════════════════════════════════════════════ */
-const PARTICLE_COUNT = 48;
+const PARTICLE_COUNT = 70;
 const GLITTER_COLORS = ["#22c55e","#f97316","#facc15","#a78bfa","#38bdf8","#f472b6","#4ade80","#fb923c","#e879f9","#fbbf24"];
 const GLITTER_SHAPES = ["●","■","◆","▲","★","✦","⬟","✿"];
 const SPEED_TIERS    = [3.2, 4.8, 6.4, 8.0, 9.6];
@@ -27,17 +28,7 @@ const PRECOMP = Object.freeze(
 const GRAVITY = 0.38, DRAG = 0.967, FADE = 0.0175;
 
 function playDing() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator(), gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    osc.type = "sine";
-    osc.frequency.setValueAtTime(1046.5, ctx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.15);
-    gain.gain.setValueAtTime(0.4, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.1);
-    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 1.15);
-  } catch (_) {}
+  try { new Audio("./ding.wav").play(); } catch (_) {}
 }
 
 /* ══════════════════════════════════════════════
