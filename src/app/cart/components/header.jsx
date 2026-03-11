@@ -5,7 +5,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 /* ══════════════════════════════════════════════
    PRECOMPUTED GLITTER
 ══════════════════════════════════════════════ */
-const PARTICLE_COUNT = 70;
+const PARTICLE_COUNT = 100;
 const GLITTER_COLORS = ["#22c55e","#f97316","#facc15","#a78bfa","#38bdf8","#f472b6","#4ade80","#fb923c","#e879f9","#fbbf24"];
 const GLITTER_SHAPES = ["●","■","◆","▲","★","✦","⬟","✿"];
 const SPEED_TIERS    = [3.2, 4.8, 6.4, 8.0, 9.6];
@@ -25,10 +25,10 @@ const PRECOMP = Object.freeze(
     });
   })
 );
-const GRAVITY = 0.38, DRAG = 0.967, FADE = 0.0175;
+const GRAVITY = 0.4, DRAG = 1, FADE = 0.0175;
 
 function playDing() {
-  try { new Audio("./ding.wav").play(); } catch (_) {}
+  try { new Audio("/ding.wav").play(); } catch (_) {}
 }
 
 /* ══════════════════════════════════════════════

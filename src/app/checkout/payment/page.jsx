@@ -148,6 +148,10 @@ export default function PaymentPage() {
     return e;
   };
 
+  function playPaymentSuccess() {
+  try { new Audio("/paymentSuccess.mp3").play(); } catch (_) {}
+}
+
   const handleNext = () => {
     const allTouched = { cardNumber: true, cardExpiry: true, cardCvv: true, cardName: true, upiId: true, bank: true };
     setTouched(allTouched);
@@ -156,6 +160,7 @@ export default function PaymentPage() {
     if (Object.keys(errs).length) return;
     setOrderNumber(" Order Number : " + Math.floor(1000000 + Math.random() * 9000000));
     setOrderConfirmed(true);
+    playPaymentSuccess();
   };
 
   useEffect(() => {
@@ -301,8 +306,9 @@ export default function PaymentPage() {
                   CVV <span style={{ color: C.accent }}>*</span>
                 </label>
                 <input
-                  placeholder="•••"
+                  placeholder="CVV"
                   type="password"
+                  maxLength={3}
                   value={payment.cardCvv}
                   onChange={set("cardCvv")}
                   onFocus={() => setFocusField("cardCvv")}

@@ -217,7 +217,7 @@ if (!loading && cartItems.length === 0) return (
       <EcoyaanHeader />
 
       <main style={{ maxWidth: "600px", margin: "0 auto", padding: isMobile ? "28px 16px 120px" : "44px 24px 120px" }}>
-        <Stepper current={4} isMobile={isMobile} />
+        <Stepper current={3} isMobile={isMobile} />
 
         {/* Hero */}
         <div style={{ textAlign: "center", marginBottom: isMobile ? "28px" : "36px" }}>
@@ -232,7 +232,7 @@ if (!loading && cartItems.length === 0) return (
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
 
           {/* Personal Info */}
-          <ReviewSection icon={<UserIcon />} title="Personal Info" editPath="/checkout" router={router}>
+          <ReviewSection icon={<UserIcon />} title="Personal Info" editPath="/" router={router}>
             <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: "12px" }}>
               {[
                 { label: "Name",  value: `${userInfo.firstName ?? ""} ${userInfo.lastName ?? ""}`.trim() || "—" },
@@ -264,15 +264,7 @@ if (!loading && cartItems.length === 0) return (
             )}
           </ReviewSection>
 
-          {/* Payment */}
-          <ReviewSection icon={<CardIcon />} title="Payment Method" editPath="/checkout/payment" router={router}>
-            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <div style={{ width: "38px", height: "26px", borderRadius: "5px", background: C.success, border: `1px solid ${C.border}`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem" }}>
-                {paymentLabel.toLowerCase().includes("upi") ? "⚡" : paymentLabel.toLowerCase().includes("cash") ? "💵" : paymentLabel.toLowerCase().includes("bank") ? "🏦" : "💳"}
-              </div>
-              <span style={{ fontSize: "0.92rem", fontWeight: "600", color: C.text }}>{paymentLabel}</span>
-            </div>
-          </ReviewSection>
+        
 
           {/* Items */}
 <ReviewSection icon={<BoxIcon />} title={`Items (${cartItems.length})`} editPath="/" router={router}>
