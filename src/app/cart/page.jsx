@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import EcoyaanHeader from "./components/header";
-import CartSummary from "./components/body";
+import UserInfoPage from "./components/body";
 
 
 export default function CartPage() {
@@ -30,11 +30,12 @@ export default function CartPage() {
 
       
     <div>
-      <EcoyaanHeader /> <br />
+      <EcoyaanHeader />
  
 
-      <div className="px-10">
-        <CartSummary /> <br />
+      <div>
+        <UserInfoPage /> <br />
+
       </div>
 
     </div>
